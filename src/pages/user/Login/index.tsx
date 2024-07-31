@@ -1,23 +1,10 @@
 import Footer from '@/components/Footer';
 import {login} from '@/services/ant-design-pro/api';
-import {getFakeCaptcha} from '@/services/ant-design-pro/login';
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  MobileOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCaptcha,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
-import {Alert, message, Tabs} from 'antd';
+import {LockOutlined, UserOutlined,} from '@ant-design/icons';
+import {LoginForm, ProFormCheckbox, ProFormText,} from '@ant-design/pro-components';
+import {Alert, Divider, message, Space, Tabs} from 'antd';
 import React, {useState} from 'react';
-import {FormattedMessage, history, SelectLang, useIntl, useModel} from 'umi';
+import {FormattedMessage, history, Link, SelectLang, useIntl, useModel} from 'umi';
 import styles from './index.less';
 import {BLOG_LINK, SYSTEM_LOGO} from "@/constants";
 
@@ -54,8 +41,8 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({...values, type});
-      if (msg.status === 'ok') {
+      const user = await login({...values, type});
+      if (user) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
@@ -69,9 +56,9 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      console.log(msg);
+      // console.log(user);
       // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+      setUserLoginState(user);
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
@@ -90,21 +77,16 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO}/>}
-          title="LIHUIBEAR知识星球"
-          subTitle={<a href={BLOG_LINK} target="_blank" rel="noreferrer">开始探索的用户中心</a>} //新页面打开
+          title="LIHUIBEAR 知识星球"
+          subTitle={
+            <>
+              <p><a href={BLOG_LINK} target="_blank" rel="noreferrer">开始探索的用户中心</a></p>
+
+            </>
+          } //新页面打开
           initialValues={{
             autoLogin: true,
           }}
-          // actions={[
-          //   <FormattedMessage
-          //     key="loginWith"
-          //     id="pages.login.loginWith"
-          //     defaultMessage="其他登录方式"
-          //   />,
-          //   <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon}/>,
-          //   <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon}/>,
-          //   <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon}/>,
-          // ]}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
@@ -112,18 +94,8 @@ const Login: React.FC = () => {
           <Tabs activeKey={type} onChange={setType}>
             <Tabs.TabPane
               key="account"
-              tab={intl.formatMessage({
-                id: 'pages.login.accountLogin.tab',
-                defaultMessage: '账号密码登录',
-              })}
+              tab={'账号密码登录'}
             />
-            {/*<Tabs.TabPane*/}
-            {/*  key="mobile"*/}
-            {/*  tab={intl.formatMessage({*/}
-            {/*    id: 'pages.login.phoneLogin.tab',*/}
-            {/*    defaultMessage: '手机号登录',*/}
-            {/*  })}*/}
-            {/*/>*/}
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
@@ -134,7 +106,7 @@ const Login: React.FC = () => {
           {type === 'account' && (
             <>
               <ProFormText
-                name="username"
+                name="userAccount"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon}/>,
@@ -148,7 +120,7 @@ const Login: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="password"
+                name="userPassword"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon}/>,
@@ -159,6 +131,12 @@ const Login: React.FC = () => {
                     required: true,
                     message: "密码是必填项",
                   },
+                  {
+                    min: 8,
+                    type: 'string',
+                    message: "密码长度不能小于8位",
+                  },
+
                 ]}
               />
             </>
@@ -168,16 +146,22 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
-              <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录"/>
-            </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-              href={"https://blog.lihuibear.cn"}
-            >忘记密码请联系lihuibear
-            </a>
+            <Space split={<Divider type="vertical"/>} size={"middle"}>
+              <ProFormCheckbox noStyle name="autoLogin">
+                <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录"/>
+              </ProFormCheckbox>
+              {/*<Divider type={"vertical"}/>*/}
+              <Link to="/user/register">新用户注册</Link>
+              {/*<Divider type={"vertical"}/>*/}
+              <a
+                style={{
+                  float: 'right',
+                }}
+                href={"https://blog.lihuibear.cn"}
+              >忘记密码
+              </a>
+            </Space>
+
           </div>
         </LoginForm>
       </div>
