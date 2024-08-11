@@ -43,6 +43,15 @@ declare namespace API {
     progress?: number;
   };
 
+  /**
+   * 通用返回类
+   */
+  type BaseResponse<T> = {
+    data: T;
+    code: number;
+    message: string;
+    description: string;
+  }
   type RuleList = {
     data?: RuleListItem[];
     /** 列表的内容总数 */
@@ -66,6 +75,7 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
+    planetCode?: string;
     type?: string;
   };
 
