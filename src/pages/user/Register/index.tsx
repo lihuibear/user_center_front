@@ -22,7 +22,8 @@ const Register: React.FC = () => {
       try {
         // 注册
         const id = await register(values);
-        if (id > 0) {
+
+        if (id) {
           const defaultLoginSuccessMessage = "注册成功！";
           message.success(defaultLoginSuccessMessage);
 
@@ -38,13 +39,11 @@ const Register: React.FC = () => {
             }
           );
           return;
-        } else {
-          throw new Error(`register error id = ${id}`);
         }
       } catch
-        (error) {
+        (error: any) {
         const defaultLoginFailureMessage = "注册失败！";
-        message.error(defaultLoginFailureMessage);
+        message.error(error.message ?? defaultLoginFailureMessage);
       }
     };
 
@@ -136,6 +135,20 @@ const Register: React.FC = () => {
 
                   ]}
                 />
+                <ProFormText
+                  name="planetCode"
+                  fieldProps={{
+                    size: 'large',
+                    prefix: <UserOutlined className={styles.prefixIcon}/>,
+                  }}
+                  placeholder="请输入星球编号"
+                  rules={[
+                    {
+                      required: true,
+                      message: "星球编号是必填项",
+                    },
+                  ]}
+                />
               </>
 
             )}
@@ -145,14 +158,14 @@ const Register: React.FC = () => {
               }}
             >
               <Space split={<Divider type="vertical"/>} size={100}>
-              <Link to="/user/login">登录</Link>
-              <a
-                style={{
-                  float: 'right',
-                }}
-                href={"https://blog.lihuibear.cn"}
-              >忘记密码
-              </a>
+                <Link to="/user/login">登录</Link>
+                <a
+                  style={{
+                    float: 'right',
+                  }}
+                  href={"https://blog.lihuibear.cn"}
+                >忘记密码
+                </a>
               </Space>
             </div>
           </LoginForm>
