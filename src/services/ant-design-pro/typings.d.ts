@@ -7,12 +7,13 @@ declare namespace API {
     username: string;
     userAccount: string;
     avatarUrl?: string;
-    gender: number;
+    gender:number;
     phone: string;
     email: string;
     userStatus: number;
-    createdTime: Date;
     userRole: number;
+    planetCode: string;
+    createTime: Date;
   };
 
   type LoginResult = {
@@ -42,6 +43,16 @@ declare namespace API {
     createdAt?: string;
     progress?: number;
   };
+
+  /**
+   * 通用返回类
+   */
+  type BaseResponse<T> = {
+    code: number,
+    data: T,
+    message: string,
+    description: string,
+  }
 
   type RuleList = {
     data?: RuleListItem[];
