@@ -8,4 +8,4 @@ export const BLOG_LINK = "https://blog.lihuibear.cn/posts/121f5ae4/"
 /**
  * 后端地址
  */
-export const BACK = "http://user-backend.huifly.cn"
+export const BACK = "http://user-back.huifly.cn"
