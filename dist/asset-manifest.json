@@ -1,8 +1,8 @@
 {
   "/umi.css": "/umi.e57bd8ba.css",
-  "/umi.js": "/umi.83c3a23c.js",
+  "/umi.js": "/umi.4a44bb9b.js",
   "/t__plugin-layout__Layout.css": "/t__plugin-layout__Layout.8984797e.chunk.css",
-  "/t__plugin-layout__Layout.js": "/t__plugin-layout__Layout.55afe412.async.js",
+  "/t__plugin-layout__Layout.js": "/t__plugin-layout__Layout.fdde497d.async.js",
   "/p__user__Login.css": "/p__user__Login.85cf78bb.chunk.css",
   "/p__user__Login.js": "/p__user__Login.b6b35324.async.js",
   "/p__user__Register.css": "/p__user__Register.2a0f384e.chunk.css",
@@ -31,10 +31,11 @@
   "/918.7644daa9.async.js": "/918.7644daa9.async.js",
   "/835.d9dcf00b.async.js": "/835.d9dcf00b.async.js",
   "/public/icons/icon-512x512.png": "/icons/icon-512x512.png",
+  "/public/icons/icon-192x192.png": "/icons/icon-192x192.png",
   "/public/favicon.ico": "/favicon.ico",
   "/public/logo.svg.bak": "/logo.svg.bak",
-  "/public/icons/icon-192x192.png": "/icons/icon-192x192.png",
   "/public/icons/icon-128x128.png": "/icons/icon-128x128.png",
+  "/public/t96io-4lk6n.png": "/t96io-4lk6n.png",
   "/public/logo/logo.svg": "/logo/logo.svg",
   "/public/pro_icon.svg": "/pro_icon.svg",
   "/public/CNAME": "/CNAME"
